@@ -1,0 +1,23 @@
+These three Git commands are used to **track, save, and upload your changes to GitHub**. Here’s what each one does:  
+
+### **1. `git add .`**  
+✅ **Stages all modified and new files** for commit.  
+- It tells Git to track all changes in the current project directory.  
+
+### **2. `git commit -m "Your update message"`**  
+✅ **Saves the changes** to your local Git repository.  
+- The `-m "Your update message"` adds a meaningful message describing what you changed.  
+
+### **3. `git push origin main`**  
+✅ **Uploads (pushes) the committed changes** to GitHub.  
+- `origin` refers to your remote repository on GitHub.  
+- `main` is the branch where you are pushing the changes.  
+
+---
+
+### **In Simple Terms:**  
+- **`git add .`** → Select all changes  
+- **`git commit -m "Updated feature"`** → Save changes locally  
+- **`git push origin main`** → Upload changes to GitHub  
+
+💡 **Use these commands every time you update your project!** 🚀
