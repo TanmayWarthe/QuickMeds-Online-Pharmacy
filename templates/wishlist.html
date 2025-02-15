@@ -1,0 +1,70 @@
+python manage.py makemigrations
+python manage.py migrate{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Wishlist - QuickMeds{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/wishlist.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="wishlist-container">
+    <div class="wishlist-header">
+        <h2>My Wishlist</h2>
+        <div>There are {{ wishlist_items|length }} products in this wishlist.</div>
+    </div>
+
+    <div class="wishlist-table">
+        <div class="table-header">
+            <span><input type="checkbox"></span>
+            <span></span>
+            <span>Product</span>
+            <span>Amount</span>
+            <span>Status</span>
+            <span>Actions</span>
+            <span>Remove</span>
+        </div>
+
+        {% if wishlist_items %}
+            {% for item in wishlist_items %}
+            <div class="wishlist-item">
+                <div><input type="checkbox"></div>
+                <div>
+                    <img src="{{ item.product.image.url }}" alt="{{ item.product.name }}" class="product-image">
+                </div>
+                <div>
+                    <div>{{ item.product.name }}</div>
+                    <div class="text-muted">{{ item.product.quantity }}</div>
+                </div>
+                <div>₹{{ item.product.price }}</div>
+                <div>
+                    {% if item.product.stock > 0 %}
+                        <span class="status-badge in-stock">In Stock</span>
+                    {% else %}
+                        <span class="status-badge out-of-stock">Out of Stock</span>
+                    {% endif %}
+                </div>
+                <div>
+                    {% if item.product.stock > 0 %}
+                        <button class="action-btn add-to-cart">Add to cart</button>
+                    {% else %}
+                        <button class="action-btn contact-us">Contact us</button>
+                    {% endif %}
+                </div>
+                <div>
+                    <a href="{% url 'remove_from_wishlist' item.id %}" class="text-danger">
+                        <i class="fas fa-trash"></i>
+                    </a>
+                </div>
+            </div>
+            {% endfor %}
+        {% else %}
+            <div class="p-4 text-center">
+                <p>Your wishlist is empty.</p>
+                <a href="{% url 'products' %}" class="btn btn-primary mt-2">Browse Products</a>
+            </div>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

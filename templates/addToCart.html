@@ -1,0 +1,71 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/addToCart.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="cart-sidebar" id="cartSidebar">
+    <div class="cart-header">
+        <h2>Shop Cart</h2>
+        <span class="location">Location in {{ location_code }}</span>
+        <button class="close-btn">&times;</button>
+    </div>
+
+    <div class="delivery-notice">
+        You've got FREE delivery. Start checkout now!
+    </div>
+
+    <div class="cart-items">
+        {% for item in cart_items %}
+        <div class="cart-item">
+            <img src="{{ item.product.image.url }}" alt="{{ item.product.name }}" class="item-image">
+            <div class="item-details">
+                <h3>{{ item.product.name }}</h3>
+                <p class="item-meta">{{ item.product.quantity }}</p>
+                <div class="item-actions">
+                    <button class="remove-btn" onclick="removeItem({{ item.id }})">
+                        <i class="fas fa-trash"></i> Remove
+                    </button>
+                </div>
+            </div>
+            <div class="item-quantity">
+                <button class="qty-btn" onclick="updateQuantity({{ item.id }}, 'decrease')">-</button>
+                <input type="number" value="{{ item.quantity }}" min="1" readonly>
+                <button class="qty-btn" onclick="updateQuantity({{ item.id }}, 'increase')">+</button>
+            </div>
+            <div class="item-price">₹{{ item.total_price }}</div>
+        </div>
+        {% endfor %}
+    </div>
+
+    <div class="cart-footer">
+        <div class="cart-total">
+            <span>Total:</span>
+            <span class="total-amount">₹{{ total_amount }}</span>
+        </div>
+        <div class="cart-buttons">
+            <button class="continue-shopping">Continue Shopping</button>
+            <button class="proceed-checkout">Proceed To Checkout</button>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+function toggleCart() {
+    const sidebar = document.getElementById('cartSidebar');
+    sidebar.classList.toggle('active');
+}
+
+function updateQuantity(itemId, action) {
+    // Add AJAX call to update quantity
+}
+
+function removeItem(itemId) {
+    // Add AJAX call to remove item
+}
+</script>
+{% endblock %}

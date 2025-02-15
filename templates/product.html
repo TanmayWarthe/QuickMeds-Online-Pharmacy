@@ -1,0 +1,1520 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Products - QuickMeds{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/product.css' %}">
+<!-- Add Font Awesome for icons -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+{% endblock %}
+
+{% block content %}
+<!-- Navbar -->
+<nav class="navbar">
+    <div class="navbar-left">
+        <button class="menu-btn" onclick="toggleSidebar()">
+            <i class="fas fa-bars"></i>
+        </button>
+        <a href="{% url 'home' %}" class="navbar-brand">
+            <i class="fas fa-clinic-medical"></i> QuickMeds
+        </a>
+    </div>
+    <div class="nav-links">
+        <a href="{% url 'home' %}" class="nav-text">
+            <i class="fas fa-home"></i> Home
+        </a>
+        <a href="{% url 'products' %}" class="nav-text">
+            <i class="fas fa-pills"></i> Products
+        </a>
+        <a href="#" class="nav-text">
+            <i class="fas fa-info-circle"></i> About
+        </a>
+        <a href="#" class="nav-text">
+            <i class="fas fa-envelope"></i> Contact
+        </a>
+        <a href="#" class="nav-icon" title="Cart">
+            <i class="fas fa-shopping-cart"></i>
+        </a>
+        {% if user.is_authenticated %}
+            <a href="{% url 'profile' %}" class="nav-icon" title="Profile">
+                <i class="fas fa-user"></i>
+            </a>
+            <a href="{% url 'logout' %}" class="nav-icon" title="Logout">
+                <i class="fas fa-sign-out-alt"></i>
+            </a>
+        {% else %}
+            <a href="{% url 'login' %}" class="nav-icon" title="Login">
+                <i class="fas fa-sign-in-alt"></i>
+            </a>
+        {% endif %}
+    </div>
+</nav>
+
+<!-- Header with tagline and menu -->
+<div class="header">
+    <div class="tagline">
+        <button class="menu-btn" onclick="toggleSidebar()">
+            <i class="fas fa-bars"></i>
+        </button>
+        <div class="centered-text-container">
+            <span class="text-center">Smarter Health Choices at Your Fingertips</span>
+        </div>
+    </div>
+</div>
+
+<!-- Sidebar -->
+<div class="sidebar" id="sidebar">
+    <div class="sidebar-header">
+        <img src="/static/img/medicines-icon.png" alt="Logo" class="sidebar-logo" />
+        <button class="close-btn" onclick="toggleSidebar()">&times;</button>
+    </div>
+    <ul class="sidebar-links">
+        <li>
+            <a href="#home"><i class="fas fa-home"></i> Home</a>
+        </li>
+        <li>
+            <a href="#pharmacy"><i class="fas fa-prescription-bottle-alt"></i> Pharmacy</a>
+        </li>
+        <li>
+            <a href="{% url 'products' %}"><i class="fas fa-prescription-bottle-alt"></i>Our Product</a>
+        </li>
+        <li>
+            <a href="#purchase"><i class="fas fa-shopping-cart"></i> My Purchase</a>
+        </li>
+        <li>
+            <a href="#share"><i class="fas fa-share-alt"></i> Share This App</a>
+        </li>
+        <li>
+            <a href="#"><i class="fas fa-comment-dots"></i> About</a>
+        </li>
+        <li>
+            <a href="#"><i class="fas fa-phone"></i> Contact Us</a>
+        </li>
+    </ul>
+</div>
+
+<!-- Main Content -->
+<div class="container main-content">
+    <div class="banner">
+        <img src="/static/img/basket-bg.png" alt="FreshCart Logo" />
+        <div class="banner-content">
+            <h2>Welcome to QuickMeds</h2>
+           
+        </div>
+     
+    </div>
+
+    <!-- Added Category Section -->
+    <div class="category-section">
+        <h2>Shop by Category</h2>
+        <div class="category-grid">
+            <!-- Row 1 -->
+            <div class="category-card">
+                <img src="/static/img/productCatlog/img2.png" alt="Baby Care" />
+                <p>Baby Care</p>
+            </div>
+            <div class="category-card">
+                <img src="/static/img/productCatlog/img2.png" alt="Meat" />
+                <p>Chicken, Meat & Fish</p>
+            </div>
+            <div class="category-card">
+                <img src="/static/img/productCatlog/img2.png" alt="Cleaning" />
+                <p>Cleaning Essentials</p>
+            </div>
+            <!-- Row 2 -->
+            <div class="category-card">
+                <img src="/static/img/productCatlog/img2.png" alt="Pet Care" />
+                <p>Pet Care</p>
+            </div>
+            <div class="category-card">
+                <img src="/static/img/productCatlog/img2.png" alt="Fruits" />
+                <p>Fruits & Vegetables</p>
+            </div>
+            <div class="category-card">
+                <img src="/static/img/productCatlog/img2.png" alt="Beverages" />
+                <p>Fruits & Vegetables</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- First Product Section (existing) -->
+    <div class="product-section">
+        <div class="product-header">
+            <div>
+                <h2>Fruits & vegetables</h2>
+                <p>eat fresh, stay healthy</p>
+            </div>
+            <div class="slider-controls">
+                <button class="control-btn prev" id="prevBtn1">
+                    <i class="fas fa-chevron-left"></i>
+                </button>
+                <button class="control-btn next" id="nextBtn1">
+                    <i class="fas fa-chevron-right"></i>
+                </button>
+            </div>
+        </div>
+
+        <div class="product-slider" id="productSlider1">
+            <!-- Product 1 -->
+            <div class="product-card">
+                <span class="badge green">15%</span>
+                <img src="/static/img/kiwi.png" alt="Fresh Kiwi" />
+                <div class="quick-actions">
+                    <button class="action-btn"><i class="far fa-eye"></i></button>
+                    <button class="action-btn"><i class="far fa-heart"></i></button>
+                    <button class="action-btn">
+                        <i class="fas fa-sync-alt"></i>
+                    </button>
+                </div>
+                <div class="product-info">
+                    <span class="category">Fruits & Vegetables</span>
+                    <h3>Fresh Kiwi</h3>
+                    <div class="rating">
+                        <div class="stars">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star-half-alt"></i>
+                        </div>
+                        <span class="rating-text">4.3 (4)</span>
+                    </div>
+                    <div class="price-row">
+                        <div class="price">
+                            <span class="current">$29.75</span>
+                            <span class="original">$35</span>
+                        </div>
+                        <button class="add-btn">+ Add</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Product 2 -->
+            <div class="product-card">
+                <span class="badge green">25%</span>
+                <img src="/static/img/tomatoes.png" alt="Crushed Tomatoes" />
+                <div class="product-info">
+                    <span class="category">Fruits & Vegetables</span>
+                    <h3>Crushed Tomatoes</h3>
+                    <div class="rating">
+                        <div class="stars">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star-half-alt"></i>
+                        </div>
+                        <span class="rating-text">4.3 (4)</span>
+                    </div>
+                    <div class="price-row">
+                        <div class="price">
+                            <span class="current">$13.5</span>
+                            <span class="original">$18</span>
+                        </div>
+                        <button class="add-btn">+ Add</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Products 3 -->
+            <div class="product-card">
+                <span class="discount">20%</span>
+                <img src="https://picsum.photos/300/200?random={{index}}" alt="Golden Pineapple" />
+                <div class="product-info">
+                    <span class="category">Fruits & Vegetables</span>
+                    <h3>Golden Pineapple</h3>
+                    <div class="rating">
+                        <span class="stars">★★★★☆</span>
+                        <span class="rating-text">4.3 (4)</span>
+                    </div>
+                    <div class="price-row">
+                        <div class="price">
+                            <span class="current">$14.4</span>
+                            <span class="original">$18</span>
+                        </div>
+                        <button class="add-btn">+ Add</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Product 4 -->
+            <div class="product-card">
+                <span class="discount">15%</span>
+                <img src="https://picsum.photos/300/200?random={{index}}" alt="Fresh Kiwi" />
+                <div class="product-info">
+                    <span class="category">Fruits & Vegetables</span>
+                    <h3>Fresh Kiwi</h3>
+                    <div class="rating">
+                        <span class="stars">★★★★☆</span>
+                        <span class="rating-text">4.3 (4)</span>
+                    </div>
+                    <div class="price-row">
+                        <div class="price">
+                            <span class="current">$29.75</span>
+                            <span class="original">$35</span>
+                        </div>
+                        <button class="add-btn">+ Add</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Product 5 -->
+            <div class="product-card">
+                <span class="discount">15%</span>
+                <img src="https://picsum.photos/300/200?random={{index}}" alt="Fresh Kiwi" />
+                <div class="product-info">
+                    <span class="category">Fruits & Vegetables</span>
+                    <h3>Fresh Kiwi</h3>
+                    <div class="rating">
+                        <span class="stars">★★★★☆</span>
+                        <span class="rating-text">4.3 (4)</span>
+                    </div>
+                    <div class="price-row">
+                        <div class="price">
+                            <span class="current">$29.75</span>
+                            <span class="original">$35</span>
+                        </div>
+                        <button class="add-btn">+ Add</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Product 6 -->
+            <div class="product-card">
+                <span class="discount">15%</span>
+                <img src="https://picsum.photos/300/200?random={{index}}" alt="Fresh Kiwi" />
+                <div class="product-info">
+                    <span class="category">Fruits & Vegetables</span>
+                    <h3>Fresh Kiwi</h3>
+                    <div class="rating">
+                        <span class="stars">★★★★☆</span>
+                        <span class="rating-text">4.3 (4)</span>
+                    </div>
+                    <div class="price-row">
+                        <div class="price">
+                            <span class="current">$29.75</span>
+                            <span class="original">$35</span>
+                        </div>
+                        <button class="add-btn">+ Add</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Product 7 -->
+            <div class="product-card">
+                <span class="discount">15%</span>
+                <img src="https://picsum.photos/300/200?random={{index}}" alt="Fresh Kiwi" />
+                <div class="product-info">
+                    <span class="category">Fruits & Vegetables</span>
+                    <h3>Fresh Kiwi</h3>
+                    <div class="rating">
+                        <span class="stars">★★★★☆</span>
+                        <span class="rating-text">4.3 (4)</span>
+                    </div>
+                    <div class="price-row">
+                        <div class="price">
+                            <span class="current">$29.75</span>
+                            <span class="original">$35</span>
+                        </div>
+                        <button class="add-btn">+ Add</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Product 8 -->
+            <div class="product-card">
+                <span class="discount">15%</span>
+                <img src="https://picsum.photos/300/200?random={{index}}" alt="Fresh Kiwi" />
+                <div class="product-info">
+                    <span class="category">Fruits & Vegetables</span>
+                    <h3>Fresh Kiwi</h3>
+                    <div class="rating">
+                        <span class="stars">★★★★☆</span>
+                        <span class="rating-text">4.3 (4)</span>
+                    </div>
+                    <div class="price-row">
+                        <div class="price">
+                            <span class="current">$29.75</span>
+                            <span class="original">$35</span>
+                        </div>
+                        <button class="add-btn">+ Add</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Product 9 -->
+            <div class="product-card">
+                <span class="discount">15%</span>
+                <img src="https://picsum.photos/300/200?random={{index}}" alt="Fresh Kiwi" />
+                <div class="product-info">
+                    <span class="category">Fruits & Vegetables</span>
+                    <h3>Fresh Kiwi</h3>
+                    <div class="rating">
+                        <span class="stars">★★★★☆</span>
+                        <span class="rating-text">4.3 (4)</span>
+                    </div>
+                    <div class="price-row">
+                        <div class="price">
+                            <span class="current">$29.75</span>
+                            <span class="original">$35</span>
+                        </div>
+                        <button class="add-btn">+ Add</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Product 10 -->
+            <div class="product-card">
+                <span class="discount">15%</span>
+                <img src="https://picsum.photos/300/200?random={{index}}" alt="Fresh Kiwi" />
+                <div class="product-info">
+                    <span class="category">Fruits & Vegetables</span>
+                    <h3>Fresh Kiwi</h3>
+                    <div class="rating">
+                        <span class="stars">★★★★☆</span>
+                        <span class="rating-text">4.3 (4)</span>
+                    </div>
+                    <div class="price-row">
+                        <div class="price">
+                            <span class="current">$29.75</span>
+                            <span class="original">$35</span>
+                        </div>
+                        <button class="add-btn">+ Add</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Product 11 -->
+            <div class="product-card">
+                <span class="discount">15%</span>
+                <img src="https://picsum.photos/300/200?random={{index}}" alt="Fresh Kiwi" />
+                <div class="product-info">
+                    <span class="category">Fruits & Vegetables</span>
+                    <h3>Fresh Kiwi</h3>
+                    <div class="rating">
+                        <span class="stars">★★★★☆</span>
+                        <span class="rating-text">4.3 (4)</span>
+                    </div>
+                    <div class="price-row">
+                        <div class="price">
+                            <span class="current">$29.75</span>
+                            <span class="original">$35</span>
+                        </div>
+                        <button class="add-btn">+ Add</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Product 12 -->
+            <div class="product-card">
+                <span class="discount">15%</span>
+                <img src="https://picsum.photos/300/200?random={{index}}" alt="Fresh Kiwi" />
+                <div class="product-info">
+                    <span class="category">Fruits & Vegetables</span>
+                    <h3>Fresh Kiwi</h3>
+                    <div class="rating">
+                        <span class="stars">★★★★☆</span>
+                        <span class="rating-text">4.3 (4)</span>
+                    </div>
+                    <div class="price-row">
+                        <div class="price">
+                            <span class="current">$29.75</span>
+                            <span class="original">$35</span>
+                        </div>
+                        <button class="add-btn">+ Add</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Product 13 -->
+            <div class="product-card">
+                <span class="discount">15%</span>
+                <img src="https://picsum.photos/300/200?random={{index}}" alt="Fresh Kiwi" />
+                <div class="product-info">
+                    <span class="category">Fruits & Vegetables</span>
+                    <h3>Fresh Kiwi</h3>
+                    <div class="rating">
+                        <span class="stars">★★★★☆</span>
+                        <span class="rating-text">4.3 (4)</span>
+                    </div>
+                    <div class="price-row">
+                        <div class="price">
+                            <span class="current">$29.75</span>
+                            <span class="original">$35</span>
+                        </div>
+                        <button class="add-btn">+ Add</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Product 14 -->
+            <div class="product-card">
+                <span class="discount">15%</span>
+                <img src="https://picsum.photos/300/200?random={{index}}" alt="Fresh Kiwi" />
+                <div class="product-info">
+                    <span class="category">Fruits & Vegetables</span>
+                    <h3>Fresh Kiwi</h3>
+                    <div class="rating">
+                        <span class="stars">★★★★☆</span>
+                        <span class="rating-text">4.3 (4)</span>
+                    </div>
+                    <div class="price-row">
+                        <div class="price">
+                            <span class="current">$29.75</span>
+                            <span class="original">$35</span>
+                        </div>
+                        <button class="add-btn">+ Add</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Product 15 -->
+            <div class="product-card">
+                <span class="discount">15%</span>
+                <img src="https://picsum.photos/300/200?random={{index}}" alt="Fresh Kiwi" />
+                <div class="product-info">
+                    <span class="category">Fruits & Vegetables</span>
+                    <h3>Fresh Kiwi</h3>
+                    <div class="rating">
+                        <span class="stars">★★★★☆</span>
+                        <span class="rating-text">4.3 (4)</span>
+                    </div>
+                    <div class="price-row">
+                        <div class="price">
+                            <span class="current">$29.75</span>
+                            <span class="original">$35</span>
+                        </div>
+                        <button class="add-btn">+ Add</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Product 16 -->
+            <div class="product-card">
+                <span class="discount">15%</span>
+                <img src="https://picsum.photos/300/200?random={{index}}" alt="Fresh Kiwi" />
+                <div class="product-info">
+                    <span class="category">Fruits & Vegetables</span>
+                    <h3>Fresh Kiwi</h3>
+                    <div class="rating">
+                        <span class="stars">★★★★☆</span>
+                        <span class="rating-text">4.3 (4)</span>
+                    </div>
+                    <div class="price-row">
+                        <div class="price">
+                            <span class="current">$29.75</span>
+                            <span class="original">$35</span>
+                        </div>
+                        <button class="add-btn">+ Add</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Product 17 -->
+            <div class="product-card">
+                <span class="discount">15%</span>
+                <img src="https://picsum.photos/300/200?random={{index}}" alt="Fresh Kiwi" />
+                <div class="product-info">
+                    <span class="category">Fruits & Vegetables</span>
+                    <h3>Fresh Kiwi</h3>
+                    <div class="rating">
+                        <span class="stars">★★★★☆</span>
+                        <span class="rating-text">4.3 (4)</span>
+                    </div>
+                    <div class="price-row">
+                        <div class="price">
+                            <span class="current">$29.75</span>
+                            <span class="original">$35</span>
+                        </div>
+                        <button class="add-btn">+ Add</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Product 18 -->
+            <div class="product-card">
+                <span class="discount">15%</span>
+                <img src="https://picsum.photos/300/200?random={{index}}" alt="Fresh Kiwi" />
+                <div class="product-info">
+                    <span class="category">Fruits & Vegetables</span>
+                    <h3>Fresh Kiwi</h3>
+                    <div class="rating">
+                        <span class="stars">★★★★☆</span>
+                        <span class="rating-text">4.3 (4)</span>
+                    </div>
+                    <div class="price-row">
+                        <div class="price">
+                            <span class="current">$29.75</span>
+                            <span class="original">$35</span>
+                        </div>
+                        <button class="add-btn">+ Add</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Product 19 -->
+            <div class="product-card">
+                <span class="discount">15%</span>
+                <img src="https://picsum.photos/300/200?random={{index}}" alt="Fresh Kiwi" />
+                <div class="product-info">
+                    <span class="category">Fruits & Vegetables</span>
+                    <h3>Fresh Kiwi</h3>
+                    <div class="rating">
+                        <span class="stars">★★★★☆</span>
+                        <span class="rating-text">4.3 (4)</span>
+                    </div>
+                    <div class="price-row">
+                        <div class="price">
+                            <span class="current">$29.75</span>
+                            <span class="original">$35</span>
+                        </div>
+                        <button class="add-btn">+ Add</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Product 20 -->
+            <div class="product-card">
+                <span class="discount">15%</span>
+                <img src="https://picsum.photos/300/200?random={{index}}" alt="Fresh Kiwi" />
+                <div class="product-info">
+                    <span class="category">Fruits & Vegetables</span>
+                    <h3>Fresh Kiwi</h3>
+                    <div class="rating">
+                        <span class="stars">★★★★☆</span>
+                        <span class="rating-text">4.3 (4)</span>
+                    </div>
+                    <div class="price-row">
+                        <div class="price">
+                            <span class="current">$29.75</span>
+                            <span class="original">$35</span>
+                        </div>
+                        <button class="add-btn">+ Add</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Second Product Section -->
+    <div class="product-section">
+        <div class="product-header">
+            <div>
+                <h2>Daily Essentials</h2>
+                <p>your everyday needs</p>
+            </div>
+            <div class="slider-controls">
+                <button class="control-btn prev" id="prevBtn2">
+                    <i class="fas fa-chevron-left"></i>
+                </button>
+                <button class="control-btn next" id="nextBtn2">
+                    <i class="fas fa-chevron-right"></i>
+                </button>
+            </div>
+        </div>
+        <div class="product-slider" id="productSlider2">
+            <!-- Product 1 -->
+            <div class="product-card">
+                <span class="badge green">15%</span>
+                <img src="/static/img/kiwi.png" alt="Fresh Kiwi" />
+                <div class="quick-actions">
+                    <button class="action-btn"><i class="far fa-eye"></i></button>
+                    <button class="action-btn"><i class="far fa-heart"></i></button>
+                    <button class="action-btn">
+                        <i class="fas fa-sync-alt"></i>
+                    </button>
+                </div>
+                <div class="product-info">
+                    <span class="category">Fruits & Vegetables</span>
+                    <h3>Fresh Kiwi</h3>
+                    <div class="rating">
+                        <div class="stars">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star-half-alt"></i>
+                        </div>
+                        <span class="rating-text">4.3 (4)</span>
+                    </div>
+                    <div class="price-row">
+                        <div class="price">
+                            <span class="current">$29.75</span>
+                            <span class="original">$35</span>
+                        </div>
+                        <button class="add-btn">+ Add</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Product 2 -->
+            <div class="product-card">
+                <span class="badge green">25%</span>
+                <img src="/static/img/tomatoes.png" alt="Crushed Tomatoes" />
+                <div class="product-info">
+                    <span class="category">Fruits & Vegetables</span>
+                    <h3>Crushed Tomatoes</h3>
+                    <div class="rating">
+                        <div class="stars">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star-half-alt"></i>
+                        </div>
+                        <span class="rating-text">4.3 (4)</span>
+                    </div>
+                    <div class="price-row">
+                        <div class="price">
+                            <span class="current">$13.5</span>
+                            <span class="original">$18</span>
+                        </div>
+                        <button class="add-btn">+ Add</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Continue with more products... -->
+            <!-- Products 3-20 with similar structure but different names/prices -->
+            <div class="product-card">
+                <span class="discount">20%</span>
+                <img src="https://picsum.photos/300/200?random={{index}}" alt="Golden Pineapple" />
+                <div class="product-info">
+                    <span class="category">Fruits & Vegetables</span>
+                    <h3>Golden Pineapple</h3>
+                    <div class="rating">
+                        <span class="stars">★★★★☆</span>
+                        <span class="rating-text">4.3 (4)</span>
+                    </div>
+                    <div class="price-row">
+                        <div class="price">
+                            <span class="current">$14.4</span>
+                            <span class="original">$18</span>
+                        </div>
+                        <button class="add-btn">+ Add</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Product 4 -->
+            <div class="product-card">
+                <span class="discount">15%</span>
+                <img src="https://picsum.photos/300/200?random={{index}}" alt="Fresh Kiwi" />
+                <div class="product-info">
+                    <span class="category">Fruits & Vegetables</span>
+                    <h3>Fresh Kiwi</h3>
+                    <div class="rating">
+                        <span class="stars">★★★★☆</span>
+                        <span class="rating-text">4.3 (4)</span>
+                    </div>
+                    <div class="price-row">
+                        <div class="price">
+                            <span class="current">$29.75</span>
+                            <span class="original">$35</span>
+                        </div>
+                        <button class="add-btn">+ Add</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Product 5 -->
+            <div class="product-card">
+                <span class="discount">15%</span>
+                <img src="https://picsum.photos/300/200?random={{index}}" alt="Fresh Kiwi" />
+                <div class="product-info">
+                    <span class="category">Fruits & Vegetables</span>
+                    <h3>Fresh Kiwi</h3>
+                    <div class="rating">
+                        <span class="stars">★★★★☆</span>
+                        <span class="rating-text">4.3 (4)</span>
+                    </div>
+                    <div class="price-row">
+                        <div class="price">
+                            <span class="current">$29.75</span>
+                            <span class="original">$35</span>
+                        </div>
+                        <button class="add-btn">+ Add</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Product 6 -->
+            <div class="product-card">
+                <span class="discount">15%</span>
+                <img src="https://picsum.photos/300/200?random={{index}}" alt="Fresh Kiwi" />
+                <div class="product-info">
+                    <span class="category">Fruits & Vegetables</span>
+                    <h3>Fresh Kiwi</h3>
+                    <div class="rating">
+                        <span class="stars">★★★★☆</span>
+                        <span class="rating-text">4.3 (4)</span>
+                    </div>
+                    <div class="price-row">
+                        <div class="price">
+                            <span class="current">$29.75</span>
+                            <span class="original">$35</span>
+                        </div>
+                        <button class="add-btn">+ Add</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Product 7 -->
+            <div class="product-card">
+                <span class="discount">15%</span>
+                <img src="https://picsum.photos/300/200?random={{index}}" alt="Fresh Kiwi" />
+                <div class="product-info">
+                    <span class="category">Fruits & Vegetables</span>
+                    <h3>Fresh Kiwi</h3>
+                    <div class="rating">
+                        <span class="stars">★★★★☆</span>
+                        <span class="rating-text">4.3 (4)</span>
+                    </div>
+                    <div class="price-row">
+                        <div class="price">
+                            <span class="current">$29.75</span>
+                            <span class="original">$35</span>
+                        </div>
+                        <button class="add-btn">+ Add</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Product 8 -->
+            <div class="product-card">
+                <span class="discount">15%</span>
+                <img src="https://picsum.photos/300/200?random={{index}}" alt="Fresh Kiwi" />
+                <div class="product-info">
+                    <span class="category">Fruits & Vegetables</span>
+                    <h3>Fresh Kiwi</h3>
+                    <div class="rating">
+                        <span class="stars">★★★★☆</span>
+                        <span class="rating-text">4.3 (4)</span>
+                    </div>
+                    <div class="price-row">
+                        <div class="price">
+                            <span class="current">$29.75</span>
+                            <span class="original">$35</span>
+                        </div>
+                        <button class="add-btn">+ Add</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Product 9 -->
+            <div class="product-card">
+                <span class="discount">15%</span>
+                <img src="https://picsum.photos/300/200?random={{index}}" alt="Fresh Kiwi" />
+                <div class="product-info">
+                    <span class="category">Fruits & Vegetables</span>
+                    <h3>Fresh Kiwi</h3>
+                    <div class="rating">
+                        <span class="stars">★★★★☆</span>
+                        <span class="rating-text">4.3 (4)</span>
+                    </div>
+                    <div class="price-row">
+                        <div class="price">
+                            <span class="current">$29.75</span>
+                            <span class="original">$35</span>
+                        </div>
+                        <button class="add-btn">+ Add</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Product 10 -->
+            <div class="product-card">
+                <span class="discount">15%</span>
+                <img src="https://picsum.photos/300/200?random={{index}}" alt="Fresh Kiwi" />
+                <div class="product-info">
+                    <span class="category">Fruits & Vegetables</span>
+                    <h3>Fresh Kiwi</h3>
+                    <div class="rating">
+                        <span class="stars">★★★★☆</span>
+                        <span class="rating-text">4.3 (4)</span>
+                    </div>
+                    <div class="price-row">
+                        <div class="price">
+                            <span class="current">$29.75</span>
+                            <span class="original">$35</span>
+                        </div>
+                        <button class="add-btn">+ Add</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Product 11 -->
+            <div class="product-card">
+                <span class="discount">15%</span>
+                <img src="https://picsum.photos/300/200?random={{index}}" alt="Fresh Kiwi" />
+                <div class="product-info">
+                    <span class="category">Fruits & Vegetables</span>
+                    <h3>Fresh Kiwi</h3>
+                    <div class="rating">
+                        <span class="stars">★★★★☆</span>
+                        <span class="rating-text">4.3 (4)</span>
+                    </div>
+                    <div class="price-row">
+                        <div class="price">
+                            <span class="current">$29.75</span>
+                            <span class="original">$35</span>
+                        </div>
+                        <button class="add-btn">+ Add</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Product 12 -->
+            <div class="product-card">
+                <span class="discount">15%</span>
+                <img src="https://picsum.photos/300/200?random={{index}}" alt="Fresh Kiwi" />
+                <div class="product-info">
+                    <span class="category">Fruits & Vegetables</span>
+                    <h3>Fresh Kiwi</h3>
+                    <div class="rating">
+                        <span class="stars">★★★★☆</span>
+                        <span class="rating-text">4.3 (4)</span>
+                    </div>
+                    <div class="price-row">
+                        <div class="price">
+                            <span class="current">$29.75</span>
+                            <span class="original">$35</span>
+                        </div>
+                        <button class="add-btn">+ Add</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Product 13 -->
+            <div class="product-card">
+                <span class="discount">15%</span>
+                <img src="https://picsum.photos/300/200?random={{index}}" alt="Fresh Kiwi" />
+                <div class="product-info">
+                    <span class="category">Fruits & Vegetables</span>
+                    <h3>Fresh Kiwi</h3>
+                    <div class="rating">
+                        <span class="stars">★★★★☆</span>
+                        <span class="rating-text">4.3 (4)</span>
+                    </div>
+                    <div class="price-row">
+                        <div class="price">
+                            <span class="current">$29.75</span>
+                            <span class="original">$35</span>
+                        </div>
+                        <button class="add-btn">+ Add</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Product 14 -->
+            <div class="product-card">
+                <span class="discount">15%</span>
+                <img src="https://picsum.photos/300/200?random={{index}}" alt="Fresh Kiwi" />
+                <div class="product-info">
+                    <span class="category">Fruits & Vegetables</span>
+                    <h3>Fresh Kiwi</h3>
+                    <div class="rating">
+                        <span class="stars">★★★★☆</span>
+                        <span class="rating-text">4.3 (4)</span>
+                    </div>
+                    <div class="price-row">
+                        <div class="price">
+                            <span class="current">$29.75</span>
+                            <span class="original">$35</span>
+                        </div>
+                        <button class="add-btn">+ Add</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Product 15 -->
+            <div class="product-card">
+                <span class="discount">15%</span>
+                <img src="https://picsum.photos/300/200?random={{index}}" alt="Fresh Kiwi" />
+                <div class="product-info">
+                    <span class="category">Fruits & Vegetables</span>
+                    <h3>Fresh Kiwi</h3>
+                    <div class="rating">
+                        <span class="stars">★★★★☆</span>
+                        <span class="rating-text">4.3 (4)</span>
+                    </div>
+                    <div class="price-row">
+                        <div class="price">
+                            <span class="current">$29.75</span>
+                            <span class="original">$35</span>
+                        </div>
+                        <button class="add-btn">+ Add</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Product 16 -->
+            <div class="product-card">
+                <span class="discount">15%</span>
+                <img src="https://picsum.photos/300/200?random={{index}}" alt="Fresh Kiwi" />
+                <div class="product-info">
+                    <span class="category">Fruits & Vegetables</span>
+                    <h3>Fresh Kiwi</h3>
+                    <div class="rating">
+                        <span class="stars">★★★★☆</span>
+                        <span class="rating-text">4.3 (4)</span>
+                    </div>
+                    <div class="price-row">
+                        <div class="price">
+                            <span class="current">$29.75</span>
+                            <span class="original">$35</span>
+                        </div>
+                        <button class="add-btn">+ Add</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Product 17 -->
+            <div class="product-card">
+                <span class="discount">15%</span>
+                <img src="https://picsum.photos/300/200?random={{index}}" alt="Fresh Kiwi" />
+                <div class="product-info">
+                    <span class="category">Fruits & Vegetables</span>
+                    <h3>Fresh Kiwi</h3>
+                    <div class="rating">
+                        <span class="stars">★★★★☆</span>
+                        <span class="rating-text">4.3 (4)</span>
+                    </div>
+                    <div class="price-row">
+                        <div class="price">
+                            <span class="current">$29.75</span>
+                            <span class="original">$35</span>
+                        </div>
+                        <button class="add-btn">+ Add</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Product 18 -->
+            <div class="product-card">
+                <span class="discount">15%</span>
+                <img src="https://picsum.photos/300/200?random={{index}}" alt="Fresh Kiwi" />
+                <div class="product-info">
+                    <span class="category">Fruits & Vegetables</span>
+                    <h3>Fresh Kiwi</h3>
+                    <div class="rating">
+                        <span class="stars">★★★★☆</span>
+                        <span class="rating-text">4.3 (4)</span>
+                    </div>
+                    <div class="price-row">
+                        <div class="price">
+                            <span class="current">$29.75</span>
+                            <span class="original">$35</span>
+                        </div>
+                        <button class="add-btn">+ Add</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Product 19 -->
+            <div class="product-card">
+                <span class="discount">15%</span>
+                <img src="https://picsum.photos/300/200?random={{index}}" alt="Fresh Kiwi" />
+                <div class="product-info">
+                    <span class="category">Fruits & Vegetables</span>
+                    <h3>Fresh Kiwi</h3>
+                    <div class="rating">
+                        <span class="stars">★★★★☆</span>
+                        <span class="rating-text">4.3 (4)</span>
+                    </div>
+                    <div class="price-row">
+                        <div class="price">
+                            <span class="current">$29.75</span>
+                            <span class="original">$35</span>
+                        </div>
+                        <button class="add-btn">+ Add</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Product 20 -->
+            <div class="product-card">
+                <span class="discount">15%</span>
+                <img src="https://picsum.photos/300/200?random={{index}}" alt="Fresh Kiwi" />
+                <div class="product-info">
+                    <span class="category">Fruits & Vegetables</span>
+                    <h3>Fresh Kiwi</h3>
+                    <div class="rating">
+                        <span class="stars">★★★★☆</span>
+                        <span class="rating-text">4.3 (4)</span>
+                    </div>
+                    <div class="price-row">
+                        <div class="price">
+                            <span class="current">$29.75</span>
+                            <span class="original">$35</span>
+                        </div>
+                        <button class="add-btn">+ Add</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Third Product Section -->
+    <div class="product-section">
+        <div class="product-header">
+            <div>
+                <h2>Healthcare Products</h2>
+                <p>for your well-being</p>
+            </div>
+            <div class="slider-controls">
+                <button class="control-btn prev" id="prevBtn3">
+                    <i class="fas fa-chevron-left"></i>
+                </button>
+                <button class="control-btn next" id="nextBtn3">
+                    <i class="fas fa-chevron-right"></i>
+                </button>
+            </div>
+        </div>
+        <div class="product-slider" id="productSlider3">
+            <!-- Product 1 -->
+            <div class="product-card">
+                <span class="badge green">15%</span>
+                <img src="/static/img/kiwi.png" alt="Fresh Kiwi" />
+                <div class="quick-actions">
+                    <button class="action-btn"><i class="far fa-eye"></i></button>
+                    <button class="action-btn"><i class="far fa-heart"></i></button>
+                    <button class="action-btn">
+                        <i class="fas fa-sync-alt"></i>
+                    </button>
+                </div>
+                <div class="product-info">
+                    <span class="category">Fruits & Vegetables</span>
+                    <h3>Fresh Kiwi</h3>
+                    <div class="rating">
+                        <div class="stars">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star-half-alt"></i>
+                        </div>
+                        <span class="rating-text">4.3 (4)</span>
+                    </div>
+                    <div class="price-row">
+                        <div class="price">
+                            <span class="current">$29.75</span>
+                            <span class="original">$35</span>
+                        </div>
+                        <button class="add-btn">+ Add</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Product 2 -->
+            <div class="product-card">
+                <span class="badge green">25%</span>
+                <img src="/static/img/tomatoes.png" alt="Crushed Tomatoes" />
+                <div class="product-info">
+                    <span class="category">Fruits & Vegetables</span>
+                    <h3>Crushed Tomatoes</h3>
+                    <div class="rating">
+                        <div class="stars">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star-half-alt"></i>
+                        </div>
+                        <span class="rating-text">4.3 (4)</span>
+                    </div>
+                    <div class="price-row">
+                        <div class="price">
+                            <span class="current">$13.5</span>
+                            <span class="original">$18</span>
+                        </div>
+                        <button class="add-btn">+ Add</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Continue with more products... -->
+            <!-- Products 3-20 with similar structure but different names/prices -->
+            <div class="product-card">
+                <span class="discount">20%</span>
+                <img src="https://picsum.photos/300/200?random={{index}}" alt="Golden Pineapple" />
+                <div class="product-info">
+                    <span class="category">Fruits & Vegetables</span>
+                    <h3>Golden Pineapple</h3>
+                    <div class="rating">
+                        <span class="stars">★★★★☆</span>
+                        <span class="rating-text">4.3 (4)</span>
+                    </div>
+                    <div class="price-row">
+                        <div class="price">
+                            <span class="current">$14.4</span>
+                            <span class="original">$18</span>
+                        </div>
+                        <button class="add-btn">+ Add</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Product 4 -->
+            <div class="product-card">
+                <span class="discount">15%</span>
+                <img src="https://picsum.photos/300/200?random={{index}}" alt="Fresh Kiwi" />
+                <div class="product-info">
+                    <span class="category">Fruits & Vegetables</span>
+                    <h3>Fresh Kiwi</h3>
+                    <div class="rating">
+                        <span class="stars">★★★★☆</span>
+                        <span class="rating-text">4.3 (4)</span>
+                    </div>
+                    <div class="price-row">
+                        <div class="price">
+                            <span class="current">$29.75</span>
+                            <span class="original">$35</span>
+                        </div>
+                        <button class="add-btn">+ Add</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Product 5 -->
+            <div class="product-card">
+                <span class="discount">15%</span>
+                <img src="https://picsum.photos/300/200?random={{index}}" alt="Fresh Kiwi" />
+                <div class="product-info">
+                    <span class="category">Fruits & Vegetables</span>
+                    <h3>Fresh Kiwi</h3>
+                    <div class="rating">
+                        <span class="stars">★★★★☆</span>
+                        <span class="rating-text">4.3 (4)</span>
+                    </div>
+                    <div class="price-row">
+                        <div class="price">
+                            <span class="current">$29.75</span>
+                            <span class="original">$35</span>
+                        </div>
+                        <button class="add-btn">+ Add</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Product 6 -->
+            <div class="product-card">
+                <span class="discount">15%</span>
+                <img src="https://picsum.photos/300/200?random={{index}}" alt="Fresh Kiwi" />
+                <div class="product-info">
+                    <span class="category">Fruits & Vegetables</span>
+                    <h3>Fresh Kiwi</h3>
+                    <div class="rating">
+                        <span class="stars">★★★★☆</span>
+                        <span class="rating-text">4.3 (4)</span>
+                    </div>
+                    <div class="price-row">
+                        <div class="price">
+                            <span class="current">$29.75</span>
+                            <span class="original">$35</span>
+                        </div>
+                        <button class="add-btn">+ Add</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Product 7 -->
+            <div class="product-card">
+                <span class="discount">15%</span>
+                <img src="https://picsum.photos/300/200?random={{index}}" alt="Fresh Kiwi" />
+                <div class="product-info">
+                    <span class="category">Fruits & Vegetables</span>
+                    <h3>Fresh Kiwi</h3>
+                    <div class="rating">
+                        <span class="stars">★★★★☆</span>
+                        <span class="rating-text">4.3 (4)</span>
+                    </div>
+                    <div class="price-row">
+                        <div class="price">
+                            <span class="current">$29.75</span>
+                            <span class="original">$35</span>
+                        </div>
+                        <button class="add-btn">+ Add</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Product 8 -->
+            <div class="product-card">
+                <span class="discount">15%</span>
+                <img src="https://picsum.photos/300/200?random={{index}}" alt="Fresh Kiwi" />
+                <div class="product-info">
+                    <span class="category">Fruits & Vegetables</span>
+                    <h3>Fresh Kiwi</h3>
+                    <div class="rating">
+                        <span class="stars">★★★★☆</span>
+                        <span class="rating-text">4.3 (4)</span>
+                    </div>
+                    <div class="price-row">
+                        <div class="price">
+                            <span class="current">$29.75</span>
+                            <span class="original">$35</span>
+                        </div>
+                        <button class="add-btn">+ Add</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Product 9 -->
+            <div class="product-card">
+                <span class="discount">15%</span>
+                <img src="https://picsum.photos/300/200?random={{index}}" alt="Fresh Kiwi" />
+                <div class="product-info">
+                    <span class="category">Fruits & Vegetables</span>
+                    <h3>Fresh Kiwi</h3>
+                    <div class="rating">
+                        <span class="stars">★★★★☆</span>
+                        <span class="rating-text">4.3 (4)</span>
+                    </div>
+                    <div class="price-row">
+                        <div class="price">
+                            <span class="current">$29.75</span>
+                            <span class="original">$35</span>
+                        </div>
+                        <button class="add-btn">+ Add</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Product 10 -->
+            <div class="product-card">
+                <span class="discount">15%</span>
+                <img src="https://picsum.photos/300/200?random={{index}}" alt="Fresh Kiwi" />
+                <div class="product-info">
+                    <span class="category">Fruits & Vegetables</span>
+                    <h3>Fresh Kiwi</h3>
+                    <div class="rating">
+                        <span class="stars">★★★★☆</span>
+                        <span class="rating-text">4.3 (4)</span>
+                    </div>
+                    <div class="price-row">
+                        <div class="price">
+                            <span class="current">$29.75</span>
+                            <span class="original">$35</span>
+                        </div>
+                        <button class="add-btn">+ Add</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Product 11 -->
+            <div class="product-card">
+                <span class="discount">15%</span>
+                <img src="https://picsum.photos/300/200?random={{index}}" alt="Fresh Kiwi" />
+                <div class="product-info">
+                    <span class="category">Fruits & Vegetables</span>
+                    <h3>Fresh Kiwi</h3>
+                    <div class="rating">
+                        <span class="stars">★★★★☆</span>
+                        <span class="rating-text">4.3 (4)</span>
+                    </div>
+                    <div class="price-row">
+                        <div class="price">
+                            <span class="current">$29.75</span>
+                            <span class="original">$35</span>
+                        </div>
+                        <button class="add-btn">+ Add</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Product 12 -->
+            <div class="product-card">
+                <span class="discount">15%</span>
+                <img src="https://picsum.photos/300/200?random={{index}}" alt="Fresh Kiwi" />
+                <div class="product-info">
+                    <span class="category">Fruits & Vegetables</span>
+                    <h3>Fresh Kiwi</h3>
+                    <div class="rating">
+                        <span class="stars">★★★★☆</span>
+                        <span class="rating-text">4.3 (4)</span>
+                    </div>
+                    <div class="price-row">
+                        <div class="price">
+                            <span class="current">$29.75</span>
+                            <span class="original">$35</span>
+                        </div>
+                        <button class="add-btn">+ Add</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Product 13 -->
+            <div class="product-card">
+                <span class="discount">15%</span>
+                <img src="https://picsum.photos/300/200?random={{index}}" alt="Fresh Kiwi" />
+                <div class="product-info">
+                    <span class="category">Fruits & Vegetables</span>
+                    <h3>Fresh Kiwi</h3>
+                    <div class="rating">
+                        <span class="stars">★★★★☆</span>
+                        <span class="rating-text">4.3 (4)</span>
+                    </div>
+                    <div class="price-row">
+                        <div class="price">
+                            <span class="current">$29.75</span>
+                            <span class="original">$35</span>
+                        </div>
+                        <button class="add-btn">+ Add</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Product 14 -->
+            <div class="product-card">
+                <span class="discount">15%</span>
+                <img src="https://picsum.photos/300/200?random={{index}}" alt="Fresh Kiwi" />
+                <div class="product-info">
+                    <span class="category">Fruits & Vegetables</span>
+                    <h3>Fresh Kiwi</h3>
+                    <div class="rating">
+                        <span class="stars">★★★★☆</span>
+                        <span class="rating-text">4.3 (4)</span>
+                    </div>
+                    <div class="price-row">
+                        <div class="price">
+                            <span class="current">$29.75</span>
+                            <span class="original">$35</span>
+                        </div>
+                        <button class="add-btn">+ Add</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Product 15 -->
+            <div class="product-card">
+                <span class="discount">15%</span>
+                <img src="https://picsum.photos/300/200?random={{index}}" alt="Fresh Kiwi" />
+                <div class="product-info">
+                    <span class="category">Fruits & Vegetables</span>
+                    <h3>Fresh Kiwi</h3>
+                    <div class="rating">
+                        <span class="stars">★★★★☆</span>
+                        <span class="rating-text">4.3 (4)</span>
+                    </div>
+                    <div class="price-row">
+                        <div class="price">
+                            <span class="current">$29.75</span>
+                            <span class="original">$35</span>
+                        </div>
+                        <button class="add-btn">+ Add</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Product 16 -->
+            <div class="product-card">
+                <span class="discount">15%</span>
+                <img src="https://picsum.photos/300/200?random={{index}}" alt="Fresh Kiwi" />
+                <div class="product-info">
+                    <span class="category">Fruits & Vegetables</span>
+                    <h3>Fresh Kiwi</h3>
+                    <div class="rating">
+                        <span class="stars">★★★★☆</span>
+                        <span class="rating-text">4.3 (4)</span>
+                    </div>
+                    <div class="price-row">
+                        <div class="price">
+                            <span class="current">$29.75</span>
+                            <span class="original">$35</span>
+                        </div>
+                        <button class="add-btn">+ Add</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Product 17 -->
+            <div class="product-card">
+                <span class="discount">15%</span>
+                <img src="https://picsum.photos/300/200?random={{index}}" alt="Fresh Kiwi" />
+                <div class="product-info">
+                    <span class="category">Fruits & Vegetables</span>
+                    <h3>Fresh Kiwi</h3>
+                    <div class="rating">
+                        <span class="stars">★★★★☆</span>
+                        <span class="rating-text">4.3 (4)</span>
+                    </div>
+                    <div class="price-row">
+                        <div class="price">
+                            <span class="current">$29.75</span>
+                            <span class="original">$35</span>
+                        </div>
+                        <button class="add-btn">+ Add</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Product 18 -->
+            <div class="product-card">
+                <span class="discount">15%</span>
+                <img src="https://picsum.photos/300/200?random={{index}}" alt="Fresh Kiwi" />
+                <div class="product-info">
+                    <span class="category">Fruits & Vegetables</span>
+                    <h3>Fresh Kiwi</h3>
+                    <div class="rating">
+                        <span class="stars">★★★★☆</span>
+                        <span class="rating-text">4.3 (4)</span>
+                    </div>
+                    <div class="price-row">
+                        <div class="price">
+                            <span class="current">$29.75</span>
+                            <span class="original">$35</span>
+                        </div>
+                        <button class="add-btn">+ Add</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Product 19 -->
+            <div class="product-card">
+                <span class="discount">15%</span>
+                <img src="https://picsum.photos/300/200?random={{index}}" alt="Fresh Kiwi" />
+                <div class="product-info">
+                    <span class="category">Fruits & Vegetables</span>
+                    <h3>Fresh Kiwi</h3>
+                    <div class="rating">
+                        <span class="stars">★★★★☆</span>
+                        <span class="rating-text">4.3 (4)</span>
+                    </div>
+                    <div class="price-row">
+                        <div class="price">
+                            <span class="current">$29.75</span>
+                            <span class="original">$35</span>
+                        </div>
+                        <button class="add-btn">+ Add</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Product 20 -->
+            <div class="product-card">
+                <span class="discount">15%</span>
+                <img src="https://picsum.photos/300/200?random={{index}}" alt="Fresh Kiwi" />
+                <div class="product-info">
+                    <span class="category">Fruits & Vegetables</span>
+                    <h3>Fresh Kiwi</h3>
+                    <div class="rating">
+                        <span class="stars">★★★★☆</span>
+                        <span class="rating-text">4.3 (4)</span>
+                    </div>
+                    <div class="price-row">
+                        <div class="price">
+                            <span class="current">$29.75</span>
+                            <span class="original">$35</span>
+                        </div>
+                        <button class="add-btn">+ Add</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="{% static 'js/product.js' %}"></script>
+<script src="{% static 'js/Homepage.js' %}"></script>
+{% endblock %}
