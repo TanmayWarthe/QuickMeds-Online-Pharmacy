@@ -1,9 +1,11 @@
-from django.shortcuts import render, redirect, get_object_or_404
+from django.shortcuts import render, redirect
 from django.contrib.auth import login, authenticate, logout
 from django.contrib.auth.models import User
 from django.contrib import messages
+from django.core.validators import validate_email
+from django.core.exceptions import ValidationError
+from .models import UserProfile
 from django.contrib.auth.decorators import login_required
-from .models import Product, UserProfile
 
 # Create your views here.
 # This is the view for the base.html template
@@ -22,41 +24,68 @@ def product_view(request):
 def login_view(request):
     if request.method == 'POST':
         action = request.POST.get('action')
-        email = request.POST.get('email')
-        password = request.POST.get('password')
+        email = request.POST.get('email', '').strip()
+        password = request.POST.get('password', '')
 
         if action == 'register':
-            # Handle registration
-            if User.objects.filter(email=email).exists():
-                messages.error(request, 'Email already exists')
-                return redirect('login')
-            
-            name = request.POST.get('name')
-            user = User.objects.create_user(
-                username=email,
-                email=email,
-                password=password,
-                first_name=name
-            )
-            UserProfile.objects.create(user=user)
-            login(request, user)
-            messages.success(request, 'Registration successful!')
-            return redirect('home')
+            try:
+                # Validate email
+                validate_email(email)
+                
+                # Check if email exists
+                if User.objects.filter(email=email).exists():
+                    messages.error(request, 'Email already registered')
+                    return redirect('login')
+                
+                # Get and validate name
+                name = request.POST.get('name', '').strip()
+                if not name:
+                    messages.error(request, 'Name is required')
+                    return redirect('login')
+                
+                # Validate password
+                if len(password) < 8:
+                    messages.error(request, 'Password must be at least 8 characters long')
+                    return redirect('login')
+                
+                # Create user
+                user = User.objects.create_user(
+                    username=email,
+                    email=email,
+                    password=password,
+                    first_name=name
+                )
+                
+                # Create user profile
+                UserProfile.objects.create(user=user)
+                
+                # Log user in
+                login(request, user)
+                messages.success(request, f'Welcome {name}! Your account has been created successfully.')
+                return redirect('home')
+                
+            except ValidationError:
+                messages.error(request, 'Please enter a valid email address')
+            except Exception as e:
+                messages.error(request, 'Registration failed. Please try again.')
             
         elif action == 'login':
-            # Handle login
             try:
                 user = User.objects.get(email=email)
                 user = authenticate(username=user.username, password=password)
+                
                 if user is not None:
                     login(request, user)
-                    messages.success(request, 'Login successful!')
+                    messages.success(request, f'Welcome back {user.first_name}!')
                     return redirect('home')
                 else:
-                    messages.error(request, 'Invalid credentials')
+                    messages.error(request, 'Invalid password')
+                    
             except User.DoesNotExist:
-                messages.error(request, 'User does not exist')
-            
+                messages.error(request, 'No account found with this email')
+            except Exception as e:
+                messages.error(request, 'Login failed. Please try again.')
+        
         return redirect('login')
     
     return render(request, 'login.html')
@@ -69,10 +98,6 @@ def logout_view(request):
 @login_required
 def profile_view(request):
     return render(request, 'profile.html')
-
-def product_detail(request, pk):
-    product = get_object_or_404(Product, pk=pk)
-    return render(request, 'product_detail.html', {'product': product})
 
 def about_view(request):
     return render(request, 'about.html')

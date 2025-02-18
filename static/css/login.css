@@ -235,3 +235,61 @@ input {
 	height: 40px;
 	width: 40px;
 }
+
+
+/* Add these styles to your existing login.css */
+
+input:focus {
+    outline: none;
+    border-color: #000000;
+    box-shadow: 0 0 5px rgba(0,0,0,0.2);
+}
+
+input.error {
+    border-color: #ff3860;
+}
+
+button:disabled {
+    background-color: #cccccc;
+    cursor: not-allowed;
+}
+
+.social-container a:hover {
+    background-color: #f1f1f1;
+    transform: translateY(-2px);
+}
+
+.ghost:hover {
+    background-color: rgba(255, 255, 255, 0.2);
+}
+
+/* Add loading state for buttons */
+button.loading {
+    position: relative;
+    color: transparent;
+}
+
+button.loading::after {
+    content: '';
+    position: absolute;
+    width: 16px;
+    height: 16px;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    margin: auto;
+    border: 2px solid #ffffff;
+    border-radius: 50%;
+    border-top-color: transparent;
+    animation: button-loading-spinner 1s linear infinite;
+}
+
+@keyframes button-loading-spinner {
+    from {
+        transform: rotate(0turn);
+    }
+    to {
+        transform: rotate(1turn);
+    }
+}
