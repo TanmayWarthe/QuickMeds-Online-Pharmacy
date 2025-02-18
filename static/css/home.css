@@ -51,14 +51,14 @@
 .text-center {
     font-size: 1.2rem; /* Adjust font size as needed */
     font-weight: bold;
-    color: #c3c3c3; /* Set a suitable color */
+    color: #000000; /* Set a suitable color */
 }
 
 
 /* Side bar */
 /* Header and tagline bar */
 .header {
-    background-color: #007bff;
+    background-color: #78ade5;
     color: #fff;
     height: 50px;
     display: flex;
@@ -527,3 +527,6 @@ footer ul li {
 footer i {
     color: #ffc107; /* Icon color */
 }
+
+
+

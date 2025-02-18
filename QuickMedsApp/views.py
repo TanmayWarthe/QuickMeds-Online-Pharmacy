@@ -2,21 +2,19 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth import login, authenticate, logout
 from django.contrib.auth.models import User
 from django.contrib import messages
-from .models import UserProfile, Product, WishlistItem
 from django.contrib.auth.decorators import login_required
+from .models import Product, UserProfile
+
+# Create your views here.
+# This is the view for the base.html template
+from django.shortcuts import render
 
 def base(request):
     return render(request, 'base.html')
 
 def home(request):
-    try:
-        if request.user.is_authenticated:
-            wishlist_count = WishlistItem.objects.filter(user=request.user).count()
-        else:
-            wishlist_count = 0
-    except:
-        wishlist_count = 0
-    return render(request, 'home.html', {'wishlist_count': wishlist_count})
+    return render(request, 'home.html')
+
 
 def product_view(request):
     return render(request, 'product.html')
@@ -72,39 +70,9 @@ def logout_view(request):
 def profile_view(request):
     return render(request, 'profile.html')
 
-@login_required
-def wishlist(request):
-    wishlist_items = WishlistItem.objects.filter(user=request.user).select_related('product')
-    context = {
-        'wishlist_items': wishlist_items,
-        'wishlist_count': wishlist_items.count()
-    }
-    return render(request, 'wishlist.html', context)
-
-@login_required
-def add_to_wishlist(request, product_id):
-    product = get_object_or_404(Product, pk=product_id)
-    wishlist, created = WishlistItem.objects.get_or_create(user=request.user, product=product)
-    messages.success(request, 'Product added to wishlist!')
-    return redirect('product_detail', pk=product_id)
-
-@login_required
-def remove_from_wishlist(request, wishlist_id):
-    wishlist_item = get_object_or_404(WishlistItem, id=wishlist_id, user=request.user)
-    wishlist_item.delete()
-    messages.success(request, 'Product removed from wishlist!')
-    return redirect('wishlist')
-
 def product_detail(request, pk):
     product = get_object_or_404(Product, pk=pk)
     return render(request, 'product_detail.html', {'product': product})
 
-@login_required
-def add_to_cart(request, product_id):
-    # Placeholder for cart functionality
-    messages.success(request, 'Product added to cart successfully!')
-    return redirect('wishlist')
-
-def contact(request):
-    # Placeholder for contact page
-    return render(request, 'contact.html')
+def about_view(request):
+    return render(request, 'about.html')

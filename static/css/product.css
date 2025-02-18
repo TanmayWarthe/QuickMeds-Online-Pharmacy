@@ -2,231 +2,104 @@ body {
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
-    background-color: #f8f9fa;
-}
-
-/* Navbar Styling */
-.navbar {
-    background: linear-gradient(135deg, #062a51 0%, #2c5282 100%);
-    padding: 1rem 2rem;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    width: 100%;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
-
-.navbar-brand {
-    font-size: 1.8rem;
-    font-weight: bold;
-    color: #ffffff;
-    text-decoration: none;
-    letter-spacing: 0.5px;
-}
-
-.nav-links {
-    display: flex;
-    align-items: center;
-    gap: 2rem;
-}
-
-.nav-text {
-    font-size: 1rem;
-    color: #ffffff;
-    font-weight: 500;
-    text-decoration: none;
-    transition: all 0.3s ease;
-    padding: 0.5rem 1rem;
-    border-radius: 4px;
-}
-
-.nav-text:hover {
-    color: #ffffff;
-    background-color: rgba(255, 255, 255, 0.1);
-    transform: translateY(-2px);
-}
-
-.nav-icon {
-    font-size: 1.2rem;
-    color: #ffffff;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    padding: 0.5rem;
-    border-radius: 50%;
-}
-
-.nav-icon:hover {
-    background-color: rgba(255, 255, 255, 0.1);
-    transform: translateY(-2px);
-}
-
-/* Mobile menu button */
-.menu-btn {
-    display: none;
-    background: transparent;
-    border: none;
-    color: #ffffff;
-    font-size: 1.5rem;
-    cursor: pointer;
-    padding: 0.5rem;
-    transition: all 0.3s ease;
-}
-
-.menu-btn:hover {
-    background-color: rgba(255, 255, 255, 0.1);
-    border-radius: 4px;
-}
-
-/* Update container to account for fixed navbar */
-.container {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 20px;
-}
-
-/* Remove these Bootstrap-specific classes */
-.navbar-toggler {
-    display: none;
-}
-
-/* Update responsive design for navbar */
-@media (max-width: 768px) {
-    .nav-links {
-        display: none;
-    }
-    
-    .menu-btn {
-        display: block;
-    }
-    
-    .navbar {
-        padding: 1rem;
-    }
-    
-    .navbar-brand {
-        font-size: 1.5rem;
-    }
-}
-
-.centered-text-container {
-    display: flex;
-    justify-content: center; /* Centers text horizontally */
-    align-items: center; /* Centers text vertically */
-    height: 100%; /* Ensures it takes full container height */
-    width: 100%; /* Ensures it takes full container width */
-    text-align: center; /* Centers multi-line text */
-}
-
-.text-center {
-    font-size: 1.2rem; /* Adjust font size as needed */
-    font-weight: bold;
-    color: #c3c3c3; /* Set a suitable color */
+    /* background-color: #f8f9fa; */
 }
 
 
-/* Side bar */
-/* Header and tagline bar */
+/* Header and Tagline */
 .header {
-    background-color: #007bff;
-    color: #fff;
-    height: 50px;
-    display: flex;
-    align-items: center;
-    padding: 0 15px;
+    background-color: #78ade5;
+    padding: 10px 0;
+    border-bottom: 1px solid #e9ecef;
 }
 
 .tagline {
     display: flex;
     align-items: center;
-    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
 }
 
-/* Sidebar styling */
+.menu-btn {
+    background: none;
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
+    padding: 5px 10px;
+    color: #333;
+}
+
+.centered-text-container {
+    flex: 1;
+    text-align: center;
+    font-size: 16px;
+    color: #333;
+    font-weight: 500;
+}
+
+/* Sidebar */
 .sidebar {
     position: fixed;
     top: 0;
-    left: -300px; /* Initially hidden */
-    height: 100%;
+    left: -300px;
     width: 300px;
-    background-color: #f8f9fa;
-    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.2);
-    transition: left 0.5s ease; /* Smooth slide-in animation */
-    display: flex;
-    flex-direction: column;
+    height: 100%;
+    background-color: white;
+    box-shadow: 2px 0 5px rgba(0,0,0,0.1);
+    transition: left 0.3s ease;
     z-index: 1000;
+}
+
+.sidebar.active {
+    left: 0;
 }
 
 .sidebar-header {
     display: flex;
-    justify-content: space-between;
     align-items: center;
-    padding: 15px;
+    justify-content: space-between;
+    padding: 20px;
+    border-bottom: 1px solid #e9ecef;
 }
 
 .sidebar-logo {
-    max-width: 100px;
-    height: auto;
+    height: 40px;
 }
 
 .close-btn {
-    font-size: 24px;
-    color: #333;
     background: none;
     border: none;
+    font-size: 24px;
     cursor: pointer;
+    color: #333;
 }
 
-/* Sidebar Links */
 .sidebar-links {
     list-style: none;
     padding: 0;
-    margin: 20px 0;
+    margin: 0;
 }
 
-.sidebar-links li {
-    margin: 10px 0;
-}
-
-.sidebar-links a {
-    text-decoration: none;
-    color: #333;
-    font-weight: bold;
+.sidebar-links li a {
     display: flex;
     align-items: center;
-    padding: 10px 20px;
-    transition: background-color 0.3s ease, color 0.3s ease;
+    padding: 15px 20px;
+    color: #333;
+    text-decoration: none;
+    transition: background-color 0.3s;
 }
 
-.sidebar-links a i {
-    margin-right: 15px;
-    font-size: 18px;
-    color: #062a51;
+.sidebar-links li a:hover {
+    background-color: #f8f9fa;
 }
 
-.sidebar-links a:hover {
-    background-color: #5d8bbc;
-    color: #fff;
+.sidebar-links li a i {
+    margin-right: 10px;
+    width: 20px;
+    text-align: center;
 }
 
-/* Active sidebar */
-.sidebar.active {
-    left: 0; /* Slide-in effect */
-}
-
-/* Responsive adjustments */
-@media (max-width: 768px) {
-    .header {
-        height: 60px;
-    }
-
-    .menu-btn {
-        font-size: 30px;
-    }
-
-    .tagline span {
-        font-size: 14px;
-    }
-}
 
 .container {
     max-width: 1200px;
@@ -380,12 +253,16 @@ body {
         padding: 12px 25px;
     }
 }
+
+
+
 /* Add these styles to your existing CSS */
 
 .product-section {
     margin: 40px 0;
     padding: 0 20px;
     position: relative;
+    overflow: hidden;
 }
 
 .product-header {
@@ -407,10 +284,29 @@ body {
     font-size: 14px;
 }
 
+/* Product Slider Container */
+.product-section {
+    position: relative;
+    overflow: hidden;
+}
+
+.product-slider {
+    display: flex;
+    gap: 20px;
+    overflow-x: hidden;
+    scroll-behavior: smooth;
+    transition: transform 0.3s ease;
+    padding: 10px 0;
+}
+
+
 /* Slider Controls */
 .slider-controls {
     display: flex;
     gap: 8px;
+    position: absolute;
+    top: 0;
+    right: 0;
 }
 
 .control-btn {
@@ -424,7 +320,7 @@ body {
     align-items: center;
     justify-content: center;
     transition: all 0.3s;
-    opacity: 1;
+    z-index: 2;
 }
 
 .control-btn:disabled {
@@ -438,32 +334,18 @@ body {
     box-shadow: 0 2px 4px rgba(0,0,0,0.1);
 }
 
-/* Product Slider */
-.product-slider {
-    display: flex;
-    gap: 20px;
-    overflow-x: hidden;
-    scroll-behavior: smooth;
-    scroll-snap-type: x mandatory;
-    padding: 10px 0;
-    -ms-overflow-style: none;
-    scrollbar-width: none;
-}
-
-.product-slider::-webkit-scrollbar {
-    display: none;
-}
-
 /* Product Card */
 .product-card {
     scroll-snap-align: start;
-    min-width: 280px;
+    min-width: 280px; /* Ensures the card doesn't shrink below 280px */
+    width: 280px; /* Fixed width for the card */
     background: white;
     border: 1px solid #e2e8f0;
     border-radius: 8px;
     padding: 16px;
     position: relative;
     transition: transform 0.3s, box-shadow 0.3s;
+    flex: 0 0 auto; /* Prevents the card from growing or shrinking */
 }
 
 .product-card:hover {
@@ -618,104 +500,38 @@ body {
     }
 }
 
-/* Navbar Styles */
-.nav-icon {
-    font-size: 1.5rem;
-    color: #333;
-    cursor: pointer;
+
+
+/* Footer */
+footer {
+    background-color: #212529; /* Dark background */
+    color: #fff; /* White text */
 }
 
-.nav-text {
-    text-decoration: none;
-    color: #333;
+footer h5 {
+    color: #f8f9fa; /* Light white for headings */
+    margin-bottom: 20px;
 }
 
-.nav-text:hover {
-    color: #0dcaf0;
+footer a {
+    color: #adb5bd; /* Subtle grey links */
+    transition: color 0.3s ease-in-out;
 }
 
-/* Header and Tagline Styles */
-.header {
-    background-color: #f8f9fa;
-    padding: 10px 0;
-    border-bottom: 1px solid #dee2e6;
+footer a:hover {
+    color: #ffc107; /* Highlight color on hover */
+    text-decoration: underline;
 }
 
-.tagline {
-    display: flex;
-    align-items: center;
-    padding: 0 20px;
-}
-
-.menu-btn {
-    background: none;
-    border: none;
-    font-size: 24px;
-    cursor: pointer;
-    padding: 5px 10px;
-}
-
-.centered-text-container {
-    flex-grow: 1;
-    text-align: center;
-}
-
-/* Sidebar Styles */
-.sidebar {
-    position: fixed;
-    top: 0;
-    left: -300px;
-    width: 300px;
-    height: 100vh;
-    background-color: white;
-    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
-    transition: left 0.3s ease;
-    z-index: 1000;
-}
-
-.sidebar.active {
-    left: 0;
-}
-
-.sidebar-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 20px;
-    border-bottom: 1px solid #dee2e6;
-}
-
-.sidebar-logo {
-    width: 40px;
-    height: 40px;
-}
-
-.close-btn {
-    background: none;
-    border: none;
-    font-size: 24px;
-    cursor: pointer;
-}
-
-.sidebar-links {
-    list-style: none;
+footer ul {
     padding: 0;
-    margin: 0;
+    list-style-type: none;
 }
 
-.sidebar-links li {
-    padding: 15px 20px;
-    border-bottom: 1px solid #dee2e6;
+footer ul li {
+    margin-bottom: 10px;
 }
 
-.sidebar-links li a {
-    text-decoration: none;
-    color: #333;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-}
-
-.sidebar-links li a:hover {
-    color: #0dcaf0;
+footer i {
+    color: #ffc107; /* Icon color */
 }

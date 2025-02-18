@@ -9,10 +9,7 @@ urlpatterns = [
     path('login/', views.login_view, name='login'),
     path('logout/', views.logout_view, name='logout'),
     path('profile/', views.profile_view, name='profile'),
-    path('products/', views.product_view, name='products'),
-    path('wishlist/', views.wishlist, name='wishlist'),
-    path('add-to-wishlist/<int:product_id>/', views.add_to_wishlist, name='add_to_wishlist'),
-    path('remove-from-wishlist/<int:wishlist_id>/', views.remove_from_wishlist, name='remove_from_wishlist'),
-    path('add-to-cart/<int:product_id>/', views.add_to_cart, name='add_to_cart'),
-    path('contact/', views.contact, name='contact'),
+    path('product/', views.product_view, name='product'),
+    path('about/', views.about_view, name='about'),
+
 ]
