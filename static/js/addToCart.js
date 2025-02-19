@@ -31,3 +31,17 @@ function addToCart(productId, productName, price) {
 document.addEventListener('DOMContentLoaded', function() {
     updateCartCount();
 });
+
+
+function toggleCart() {
+    const sidebar = document.getElementById('cartSidebar');
+    sidebar.classList.toggle('active');
+}
+
+function updateQuantity(itemId, action) {
+    // Add AJAX call to update quantity
+}
+
+function removeItem(itemId) {
+    // Add AJAX call to remove item
+}

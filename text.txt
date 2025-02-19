@@ -25,5 +25,5 @@ These three Git commands are used to **track, save, and upload your changes to G
 
 
 
-ID : LUFFY
-PASSWORD : TANMAY27
+ID : QUICKMEDS
+PASSWORD : QUICKMEDS123

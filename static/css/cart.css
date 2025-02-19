@@ -1,0 +1,23 @@
+/* Cart page styles */
+.card {
+    border: none;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
+
+.btn-outline-secondary {
+    border-color: #dee2e6;
+}
+
+.btn-outline-secondary:hover {
+    background-color: #f8f9fa;
+    border-color: #dee2e6;
+}
+
+.fa-trash {
+    color: #dc3545;
+}
+
+.img-fluid {
+    max-height: 80px;
+    object-fit: cover;
+}

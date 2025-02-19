@@ -6,6 +6,7 @@ from django.core.validators import validate_email
 from django.core.exceptions import ValidationError
 from .models import UserProfile
 from django.contrib.auth.decorators import login_required
+from django.http import JsonResponse
 
 # Create your views here.
 # This is the view for the base.html template
@@ -99,5 +100,12 @@ def logout_view(request):
 def profile_view(request):
     return render(request, 'profile.html')
 
+
 def about_view(request):
     return render(request, 'about.html')
+
+def cart_view(request):
+    return render(request, 'cart.html')
+
+
+
